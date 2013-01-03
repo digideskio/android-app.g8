@@ -22,7 +22,7 @@ object General {
     classesDexPath in Android <<= (crossTarget, classesDexName in Android)(_ / _),
     packageApkName in Android <<= (name)((a) => "%s.apk".format(a)),
     packageApkPath in Android <<= (crossTarget, packageApkName in Android)(_ / _),
-    crossTarget <<= (baseDirectory)(_ / "bin"),
+    crossTarget <<= (baseDirectory)(_ / "bin")
   )
 
   val proguardSettings = Seq (
