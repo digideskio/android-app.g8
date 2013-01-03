@@ -10,6 +10,19 @@ object General {
     versionCode := 0,
     scalaVersion := "$scala_version$",
     platformName in Android := "android-$api_level$"
+    //fix sbt settings for eclipse layout
+    manifestPath in Android <<= (baseDirectory, manifestName in Android) map ((s, m) => Seq(s / m)),
+    mainAssetsPath in Android <<= (baseDirectory, assetsDirectoryName in Android)(_ / _),
+    mainResPath in Android <<= (baseDirectory, resDirectoryName in Android)(_ / _),
+    managedJavaPath <<= (baseDirectory)(_ / "gen"),
+    managedJavaPath in Android <<= (baseDirectory)(_ / "gen"),
+    nativeLibrariesPath in Android <<= (sourceDirectory)(_ / "libs"),
+    resourcesApkName in Android := "resources.ap_",
+    resourcesApkPath in Android <<= (crossTarget, resourcesApkName in Android)(_ / _),
+    classesDexPath in Android <<= (crossTarget, classesDexName in Android)(_ / _),
+    packageApkName in Android <<= (name)((a) => "%s.apk".format(a)),
+    packageApkPath in Android <<= (crossTarget, packageApkName in Android)(_ / _),
+    crossTarget <<= (baseDirectory)(_ / "bin"),
   )
 
   val proguardSettings = Seq (
